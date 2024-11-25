@@ -1,0 +1,104 @@
+<style>
+   *{
+  background-image: url(https://media.istockphoto.com/id/1478665249/vector/bright-pink-blue-diamond-shape-gradient-pattern.jpg?s=2048x2048&w=is&k=20&c=acIsiXwOKaOPqN5kA_89LEY9UCkkhdDFgyI_TPWjj0A=);
+  }
+ h1
+ {
+  text-align: center;
+  color: darkred;
+  font-size: 50px;
+ }
+ table {
+    box-shadow: 5px 5px 10px black;
+    width: 70%;
+    margin-bottom: 20px;
+    margin-left: 15%;
+    border: 1px solid gray;
+  } 
+
+th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 25px;
+  text-align: center;
+}
+td{
+  border: 1px solid #ddd;
+  padding: 8px;
+
+}
+
+th {
+  background-color: #f4f4f4;
+  text-align: left;
+}
+a{
+  text-decoration: none;
+  color: darkred;
+  font-size: 20px;
+}
+a:hover
+{
+  text-shadow: 5px 5px 10px burlywood;
+}
+button
+{
+  margin-top: 2%;
+  margin-left: 40%;
+  padding-top: 0;
+  border: 0px solid gray;
+  border-radius: 10px;
+}
+
+.a1
+{
+  padding: 5px;
+  font-size: 23px;
+  font-family: sans-serif;
+  color: white;
+}
+.a1:hover
+{
+  text-shadow: none;
+}
+</style>
+
+<h1>--- Articles ---</h1> 
+<table>
+  <thead>
+    <tr>
+      <th>S.NO</th>
+      <th>Title</th>
+      <th>Body</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @articles.each do |article| %>
+     <% unless article.archived? %>
+      <tr>
+        <td><%= article.id %></td>
+        <td><%= article.title %></td>
+        <td><%= article.body %></td>
+        <td>
+          <!-- Show Link -->
+          &nbsp; &nbsp;&nbsp; 
+          <a><%= link_to 'Comment', article_path(article) %></a> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+          <!-- Edit Link -->
+          <a><%= link_to 'Edit', edit_article_path(article) %> </a>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
+          <!-- Delete Link -->
+          <a><%= link_to "Destroy", article_path(article), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %></a>
+        </td>
+      </tr> 
+        <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<!-- Link to Create a New Article -->
+<%# <%= link_to 'Create New Article', new_article_path %>
+
+<button><a href="<%= new_article_path %>" class="a1">Create New Article</a></button>
