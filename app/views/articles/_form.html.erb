@@ -6,8 +6,8 @@
   .main_div
   {
 
-    height:auto;
-    width: 300px;
+    height:350px;
+    width: 500px;
     line-height: 2;
     text-align: center;
     padding: 10px;
@@ -42,14 +42,18 @@
     <% article.errors.full_messages_for(:body).each do |message| %>
       <div><%= message %></div>
     <% end %>
-  </div>
-  <div style="color: white;">
+  </div> <br>
+   <div>
+    <%= form.label :image %>
+    <%= form.file_field :image %>
+  </div>  <br>
+  <div>
     <%= form.submit %>
   </div>
-  <div>
-  <%= form.label :status %><br>
-  <%= form.select :status, Visible::VALID_STATUSES, selected: article.status || 'public' %>
-</div>
+  <%# <div> %>
+  <%# <%= form.label :status %>
+  <%# <%= form.select :status, Visible::VALID_STATUSES, selected: article.status || 'public' %>
+<%# </div> %>
 
 <% end %>
-<div>
+</div>

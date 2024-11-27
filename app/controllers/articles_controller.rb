@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
 
-    http_basic_authenticate_with name: "kratika", password: "root", except: [:index, :show]
+   # http_basic_authenticate_with name: "kratika", password: "root", except: [:index, :show]
 
   def index
     @articles = Article.all.order(:id)
@@ -51,5 +51,10 @@ class ArticlesController < ApplicationController
       params.expect(article: [:title, :body, :status])
     end
 
+
+  private
+    def article_params
+    params.require(:article).permit(:title, :body, :image, :status)
+  end
  
 end

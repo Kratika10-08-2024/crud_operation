@@ -25,6 +25,8 @@ th {
 td{
   border: 1px solid #ddd;
   padding: 8px;
+  font-weight: 600;
+
 
 }
 
@@ -61,6 +63,11 @@ button
 {
   text-shadow: none;
 }
+
+<%# .img {
+  padding:10px;
+} %>
+
 </style>
 
 <h1>--- Articles ---</h1> 
@@ -70,33 +77,39 @@ button
       <th>S.NO</th>
       <th>Title</th>
       <th>Body</th>
+      <th>Image</th>
       <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <% @articles.each do |article| %>
-     <% unless article.archived? %>
-      <tr>
-        <td><%= article.id %></td>
-        <td><%= article.title %></td>
-        <td><%= article.body %></td>
-        <td>
-          <!-- Show Link -->
-          &nbsp; &nbsp;&nbsp; 
-          <a><%= link_to 'Comment', article_path(article) %></a> &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-          <!-- Edit Link -->
-          <a><%= link_to 'Edit', edit_article_path(article) %> </a>&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
-          <!-- Delete Link -->
-          <a><%= link_to "Destroy", article_path(article), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %></a>
-        </td>
-      </tr> 
-        <% end %>
+      <% unless article.archived? %>
+        <tr>
+          <td><%= article.id %></td>
+          <td><%= article.title %></td>
+          <td><%= article.body %></td>
+          <td class="img">
+            <% if article.image.attached? %>
+              <%= image_tag article.image, size: "150x100" %>
+            <% else %>
+              <p>No image</p>
+            <% end %>
+          </td>
+          <td>
+            <!-- Show Link -->
+            <%= link_to 'Comment', article_path(article) %> &nbsp;
+            <%= link_to 'Edit', edit_article_path(article) %> &nbsp;
+            <%= link_to 'Destroy', article_path(article), data: {
+              turbo_method: :delete,
+              turbo_confirm: "Are you sure?"
+            } %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
+
 
 <!-- Link to Create a New Article -->
 <%# <%= link_to 'Create New Article', new_article_path %>
